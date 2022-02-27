@@ -37,12 +37,14 @@ export default defineComponent({
         }
 
         onMounted(() => {
-
+            var i = 1
             const wrapper = document.querySelector(".content-box") as HTMLElement
             const wrapper2 = document.querySelector(".content-loc") as HTMLElement
             let getStyleOut = window.getComputedStyle(wrapper)
+            //初始化窗口位置
             wrapper.style.left = `${parseInt(getStyleOut.left) - parseInt(getStyleOut.width) / 2}px`
             wrapper.style.top = `${parseInt(getStyleOut.top) - parseInt(getStyleOut.height) / 2}px`
+            //拖动函数
             function onDrag({ movementX, movementY }: MouseEvent) {
                 let getStyle = window.getComputedStyle(wrapper)
                 let left = parseInt(getStyle.left)
@@ -50,11 +52,11 @@ export default defineComponent({
 
                 if (top < 25) {
                     wrapper.style.top = "25px"
-                    // document.removeEventListener("mousemove", onDrag)
                     return
                 }
-                wrapper.style.left = `${left + movementX}px`
-                wrapper.style.top = `${top + movementY}px`
+
+                wrapper.style.left = `${left + movementX / 2}px`
+                wrapper.style.top = `${top + movementY / 2}px`
 
             }
 
@@ -64,7 +66,7 @@ export default defineComponent({
                 let height = parseInt(getStyle.height)
                 if (height < 450) {
                     wrapper.style.height = "450px"
-                    console.log(e)
+
                     return
                 }
                 if (width < 800) {
@@ -83,32 +85,46 @@ export default defineComponent({
                 }
                 wrapper2.style.height = `${height2 + e.movementY}px`
             }
+            //使出口可以拖动
             function makeitMove() {
                 const ele = document.querySelector(".move-bar") as HTMLElement;
                 ele.addEventListener("mousedown", () => {
                     ele.classList.add("active")
-                    wrapper.classList.add("content-onmove")
+
                     document.addEventListener("mousemove", onDrag)
+                    document.addEventListener("mouseup", () => {
+                        ele.classList.remove("active")
 
-                })
-                document.addEventListener("mouseup", () => {
-                    ele.classList.remove("active")
-                    wrapper.classList.remove("content-onmove")
-                    document.removeEventListener("mousemove", onDrag)
+                        document.removeEventListener("mousemove", onDrag)
 
+                    })
                 })
             }
+            //使出口可以改变大小
             function makeitExt() {
                 const ele = document.querySelector(".to-ext-box") as HTMLElement;
                 ele.addEventListener("mousedown", () => {
                     document.addEventListener("mousemove", onExt)
-                })
-                document.addEventListener("mouseup", () => {
-                    document.removeEventListener("mousemove", onExt)
+
+                    document.addEventListener("mouseup", () => {
+                        document.removeEventListener("mousemove", onExt)
+                    })
                 })
             }
             makeitMove()
-            makeitExt()
+            // makeitExt()
+
+
+
+
+            document.addEventListener('keyup', function (e) {
+
+                if (e.key == "Escape") {
+                    unmakeSitesShow()
+                }
+            })
+
+
 
         })
         return {
@@ -208,7 +224,7 @@ export default defineComponent({
     z-index: 100;
 }
 .to-ext-box:hover {
-    background-color: rgb(233, 152, 152);
+    background-color: rgb(241, 71, 71);
     cursor: move;
 }
 .to-ext-box:hover ~ div {
@@ -230,7 +246,7 @@ export default defineComponent({
     border-radius: 7px;
 }
 .to-out:hover div {
-    background-color: rgba(219, 119, 119, 0.801);
+    background-color: rgba(248, 89, 89, 0.993);
     width: 14px;
     height: 14px;
     border-radius: 7px;

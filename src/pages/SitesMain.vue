@@ -1,38 +1,33 @@
 <template>
-    <div class="nav">
-        <div>影视</div>
-        <div>小说</div>
-        <div>网盘</div>
-        <div>编程</div>
-        <div>图片</div>
-        <div>我的收藏</div>
-    </div>
     <div class="show-table">
         <div class="table-side">
-            <div>菜单</div>
+            <img src="./../assets/logo.png" />
             <div>菜单</div>
             <div>菜单</div>
             <div>菜单</div>
             <div>菜单</div>
             <div>菜单</div>
         </div>
-        <table class="table">
-            <tr>
-                <th>序号</th>
-                <th>logo</th>
-                <th>站名</th>
-                <th>简介</th>
-                <th>点击数</th>
-            </tr>
-
-            <tr class="table-item" v-for="i in 14">
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
-            </tr>
-        </table>
+        <div class="table">
+            <div class="list-header">
+                <ul>
+                    <li>序号</li>
+                    <li>logo</li>
+                    <li>站名</li>
+                    <li>简介</li>
+                    <li>点击数</li>
+                </ul>
+            </div>
+            <div class="list-body">
+                <ul class="table-item" v-for="i in 24">
+                    <li>{{ i }}</li>
+                    <li>lo</li>
+                    <li>站</li>
+                    <li>简</li>
+                    <li>{{ i + 1 }}</li>
+                </ul>
+            </div>
+        </div>
     </div>
 </template>
 <script lang="ts">
@@ -42,6 +37,41 @@ export default defineComponent({
 })
 </script>
 <style scoped>
+.list-header {
+    background-color: rgb(197, 197, 197);
+    height: 30px;
+}
+.list-header ul {
+    display: inline-block;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: rgb(197, 197, 197);
+    height: inherit;
+}
+.list-header ul li {
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+}
+.list-body {
+    max-height: 560px;
+    overflow-y: auto;
+}
+.list-body ul {
+    padding: 0;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-bottom: rgb(219, 219, 219) 0.1px solid;
+}
+.list-body ul li {
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+    font-size: 15px;
+    border-right: rgb(219, 219, 219) 0.1px solid;
+    box-sizing: border-box;
+}
 .show-table {
     position: absolute;
     bottom: 0;
@@ -57,33 +87,7 @@ export default defineComponent({
     height: inherit;
     background-color: #fff;
     border: 1px rgba(0, 0, 0, 0.082) solid;
-    border-collapse: collapse;
-    border-radius: 10px;
-}
-
-.table tr {
-    /* height: 30px; */
-}
-
-.table tr th {
-    border: 1px rgba(0, 0, 0, 0.13) solid;
-    height: 30px;
-}
-.table tr td {
-    border: 1px rgba(0, 0, 0, 0.082) solid;
-    /* height: 35px; */
-}
-.table-item td:nth-child(1) {
-    width: 40px;
-}
-.table-item td:nth-child(2) {
-    width: 40px;
-}
-.table-item td:nth-child(5) {
-    width: 50px;
-}
-.table-item td:nth-child(3) {
-    width: 100px;
+    border-bottom-right-radius: 10px;
 }
 .table-side {
     position: absolute;
